@@ -239,6 +239,51 @@ Finalmente, Render entra en acción:
 4. **Ejecución:** Render descarga la nueva imagen e inicia un contenedor ejecutando el comando `CMD` del `Dockerfile` (es decir, `python app.py`). El nuevo código ya está en producción.
 
 
+El "Paso 5" anterior resume lo que hace Render, pero aquí está el "cómo" configurarlo por primera vez para que todo funcione automáticamente.
+
+1. Crear el Servicio:
+
+En tu dashboard de Render, haz clic en "New" > "Web Service".
+
+2. Seleccionar el Tipo de Despliegue:
+
+* Elige la opción "Deploy an existing image from a registry". Render te pedirá la URL de la imagen.
+
+3. Configurar la Imagen:
+
+* Image URL: Pega la ruta a tu paquete en GHCR: ghcr.io/altamiranoyavirac/ejemplo-render:1.0.1 (o puedes omitir la etiqueta :1.0.1 para que Render siempre busque la más reciente, latest).
+
+4. Conectar el Registro (GHCR):
+
+* Render detectará que ghcr.io es un registro privado. Te pedirá que configures las credenciales.
+
+* Selecciona "GitHub Container Registry".
+
+* Deberás crear un "Personal Access Token (PAT)" en GitHub con permisos de read:packages.
+
+* Pega tu nombre de usuario de GitHub y el PAT en Render.
+
+5. Configurar el Servicio:
+
+* Dale un nombre a tu servicio (ej. mi-app-flask).
+
+* Variables de Entorno: Render detectará automáticamente el EXPOSE 5000 de tu Dockerfile. No necesitas añadir una variable PORT, ya que app.py usa 5000 como default si PORT no está definida.
+
+* Plan: Elige el plan Free.
+
+6. Activar el Despliegue Automático:
+
+* ¡Este es el paso clave! En la configuración de tu servicio, asegúrate de que "Auto-Deploy" esté activado ("Yes").
+
+* Render monitoreará tu registro de contenedores. Cuando tu GitHub Action (ci.yml) suba una nueva imagen con la misma etiqueta (:1.0.1 o latest), Render lo detectará automáticamente y comenzará un nuevo despliegue.
+
+7. Crear el Servicio:
+
+* Haz clic en "Create Web Service". Render descargará la imagen y la desplegará por primera vez.
+
+* ¡Y listo! Ahora, cada vez que hagas git push origin Cristian, GitHub Actions probará tu código, construirá el "Package" y lo subirá a GHCR. Render lo detectará y lo desplegará automáticamente.
+
+
 ## Nota:
 
 Los archivos y su contendio el cual es explicado en este documento, es encuentra en la Rama `Cristian` de este repositorio.
