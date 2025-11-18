@@ -1,4 +1,4 @@
-# 🚀 Ejemplo de CI/CD con GitHub Actions, Docker y Render
+# Ejemplo de CI/CD con GitHub Actions, Docker y Render
 
 Este repositorio demuestra un flujo de trabajo de CI/CD moderno para una aplicación en **Python (Flask)**. A diferencia de un buildpack nativo de Render, este enfoque utiliza **GitHub Actions** para la Integración Continua (CI) y la creación de un **paquete Docker**. Render se encarga del Despliegue Continuo (CD) consumiendo ese paquete.
 
