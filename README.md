@@ -243,7 +243,7 @@ El "Paso 5" anterior resume lo que hace Render, pero aquí está el "cómo" conf
 
 1. Crear el Servicio:
 
-En tu dashboard de Render, haz clic en "New" > "Web Service".
+* En tu dashboard de Render, haz clic en "New" > "Web Service".
 
 2. Seleccionar el Tipo de Despliegue:
 
